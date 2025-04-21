@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AndroidPractice</string>
+    <string name="password_place">Password</string>
+    <string name="login_place">Login</string>
+    <string name="logo_place">Logo</string>
+    <string name="nickname_place">Nickname</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="enter_sign_in">…or enter existing account</string>
+    <string name="enter_sign_up">…or create new account</string>
+
 </resources>
