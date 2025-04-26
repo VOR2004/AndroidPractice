@@ -1,7 +1,7 @@
 package ru.itis.androidpractice.domain.usecases
 
 import ru.itis.androidpractice.core.utils.PasswordHasher
-import ru.itis.androidpractice.data.local.db.entities.UserEntity
+import ru.itis.androidpractice.data.local.entities.UserEntity
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
 import ru.itis.androidpractice.domain.validation.EmailValidator

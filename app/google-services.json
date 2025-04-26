@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "390126902091",
+    "project_id": "androidpractice-2fe82",
+    "storage_bucket": "androidpractice-2fe82.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390126902091:android:68c73d6e35603f2d8826ce",
+        "android_client_info": {
+          "package_name": "ru.itis.androidpractice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhm0z0rKwS89ky5sBn39rK4b0Xr21HcH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

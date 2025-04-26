@@ -1,10 +1,13 @@
-package ru.itis.androidpractice.data.local.db.entities
+package ru.itis.androidpractice.data.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+import com.google.firebase.firestore.IgnoreExtraProperties
+
+@IgnoreExtraProperties
 @Entity(
     tableName = "users",
     indices = [
@@ -15,11 +18,11 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: String,
+    var id: String = "",
     @ColumnInfo(name = "email")
-    val email: String,
+    var email: String = "",
     @ColumnInfo(name = "hash_password")
-    val hashPassword: String,
+    var hashPassword: String = "",
     @ColumnInfo(name = "username")
-    val username: String
+    var username: String = ""
 )

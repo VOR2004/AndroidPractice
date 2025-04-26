@@ -15,10 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,10 +34,13 @@ import ru.itis.androidpractice.presentation.ui.viewmodel.SignInViewModel
 fun SignInScreen(
     signInViewModel: SignInViewModel = hiltViewModel(),
     onNavigateToRegister: () -> Unit,
-    onNavigateToMain: () -> Unit
+    onNavigateToMain: () -> Unit,
+    onSignedIn: () -> Unit
 ) {
-    var textLogin by remember { mutableStateOf("") }
-    var textPassword by remember { mutableStateOf("") }
+    val login = signInViewModel.login
+    val password = signInViewModel.password
+    val loginError = signInViewModel.loginError
+    val passwordError = signInViewModel.passwordError
 
     val errorTextHeight = 16.dp
 
@@ -49,7 +48,6 @@ fun SignInScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         Image(
             painter = painterResource(R.drawable.logo_resized_512),
             modifier = Modifier
@@ -60,20 +58,17 @@ fun SignInScreen(
         )
 
         OutlinedTextField(
-            value = textLogin,
-            onValueChange = {
-                signInViewModel.onLoginChanged(it)
-                textLogin = it
-                            },
+            value = login,
+            onValueChange = { signInViewModel.onLoginChanged(it) },
             placeholder = { Text(text = stringResource(R.string.login_place)) },
-            isError = signInViewModel.loginError != null,
+            isError = loginError != null,
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 64.dp),
         )
         Box(modifier = Modifier.height(errorTextHeight)) {
-            signInViewModel.loginError?.let {
+            loginError?.let {
                 Text(
                     text = it,
                     color = Color.Red,
@@ -83,34 +78,35 @@ fun SignInScreen(
         }
 
         OutlinedTextField(
-            value = textPassword,
-            onValueChange = {
-                signInViewModel.onPasswordChanged(it)
-                textPassword = it
-                            },
+            value = password,
+            onValueChange = { signInViewModel.onPasswordChanged(it) },
             placeholder = { Text(text = stringResource(R.string.password_place)) },
-            isError = signInViewModel.passwordError != null,
+            isError = passwordError != null,
             shape = RoundedCornerShape(8.dp),
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp, top = 24.dp)
+                .padding(start = 32.dp, end = 32.dp, top = 8.dp)
         )
         Box(modifier = Modifier.height(errorTextHeight)) {
-            signInViewModel.passwordError?.let {
+            passwordError?.let {
                 Text(
                     text = it,
                     color = Color.Red,
                     style = MaterialTheme.typography.labelSmall
                 )
-                textPassword = ""
             }
         }
 
         ButtonDefault(
             text = stringResource(R.string.sign_in),
             onClick = {
-                signInViewModel.signIn(onSuccess = onNavigateToMain)
+                signInViewModel.signIn(
+                    onSuccess = {
+                        onNavigateToMain()
+                        onSignedIn()
+                    }
+                )
             }
         )
 
@@ -133,6 +129,5 @@ fun SignInScreen(
 
             ButtonEnter(onClick = onNavigateToRegister)
         }
-
     }
 }

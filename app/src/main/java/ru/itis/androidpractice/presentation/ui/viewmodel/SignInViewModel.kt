@@ -15,12 +15,16 @@ class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
 ) : ViewModel() {
 
-    var login: String = ""
-    var password: String = ""
-
-    var loginError: String? by mutableStateOf(null)
+    var login by mutableStateOf("")
         private set
-    var passwordError: String? by mutableStateOf(null)
+
+    var password by mutableStateOf("")
+        private set
+
+    var loginError by mutableStateOf<String?>(null)
+        private set
+
+    var passwordError by mutableStateOf<String?>(null)
         private set
 
     fun onLoginChanged(value: String) {
@@ -42,7 +46,10 @@ class SignInViewModel @Inject constructor(
 
             if (result.isSuccess) {
                 onSuccess()
+            } else {
+                password = ""
             }
         }
     }
 }
+

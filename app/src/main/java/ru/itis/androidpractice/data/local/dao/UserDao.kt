@@ -1,10 +1,10 @@
-package ru.itis.androidpractice.data.local.db.dao
+package ru.itis.androidpractice.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ru.itis.androidpractice.data.local.db.entities.UserEntity
+import ru.itis.androidpractice.data.local.entities.UserEntity
 
 @Dao
 interface UserDao {

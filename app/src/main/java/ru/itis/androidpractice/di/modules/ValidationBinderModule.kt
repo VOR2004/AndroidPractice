@@ -1,4 +1,4 @@
-package ru.itis.androidpractice.di
+package ru.itis.androidpractice.di.modules
 
 import dagger.Binds
 import dagger.Module
@@ -13,7 +13,7 @@ import ru.itis.androidpractice.domain.validation.UsernameValidator
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface ValidationModule {
+interface ValidationBinderModule {
 
     @Binds
     fun bindEmailValidator(impl: DefaultEmailValidator): EmailValidator

@@ -1,9 +1,9 @@
-package ru.itis.androidpractice.data.local.db.instance
+package ru.itis.androidpractice.data.local.dbinstance
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.itis.androidpractice.data.local.db.dao.UserDao
-import ru.itis.androidpractice.data.local.db.entities.UserEntity
+import ru.itis.androidpractice.data.local.dao.UserDao
+import ru.itis.androidpractice.data.local.entities.UserEntity
 
 @Database(
     entities = [UserEntity::class],
