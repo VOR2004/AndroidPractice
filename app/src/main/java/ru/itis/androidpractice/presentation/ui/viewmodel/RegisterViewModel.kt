@@ -75,5 +75,11 @@ class RegisterViewModel @Inject constructor(
             showNoConnectionBanner = false
         )
     }
+
+    fun togglePasswordVisibility() {
+        viewState = viewState.copy(
+            passwordVisible = !viewState.passwordVisible
+        )
+    }
 }
 

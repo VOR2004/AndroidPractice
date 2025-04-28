@@ -15,4 +15,6 @@ data class RegisterState(
     val nicknameError: String? = null,
 
     val showNoConnectionBanner: Boolean = false,
+
+    val passwordVisible: Boolean = false
 )

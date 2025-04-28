@@ -2,8 +2,8 @@ package ru.itis.androidpractice.data.repositories.impl
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.itis.androidpractice.data.common.model.BaseUserModel
 import ru.itis.androidpractice.data.local.datasource.UserLocalDataSource
-import ru.itis.androidpractice.data.local.entities.UserEntity
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class UserRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
-    override suspend fun saveUser(user: UserEntity) {
+    override suspend fun saveUser(user: BaseUserModel) {
         withContext(Dispatchers.IO) {
             val remoteResult = userRemoteDataSource.insertUser(user)
             remoteResult.onSuccess {
@@ -22,7 +22,7 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUser(id: String): UserEntity? {
+    override suspend fun getUser(id: String): BaseUserModel? {
         return withContext(Dispatchers.IO) {
             val localUser = userLocalDataSource.getUser(id)
             if (localUser != null) {
@@ -36,7 +36,7 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserByEmail(email: String): UserEntity? {
+    override suspend fun getUserByEmail(email: String): BaseUserModel? {
         return withContext(Dispatchers.IO) {
             val localUser = userLocalDataSource.getUserByEmail(email)
             if (localUser != null) {

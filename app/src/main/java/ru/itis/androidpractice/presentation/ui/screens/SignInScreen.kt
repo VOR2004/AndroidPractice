@@ -10,7 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -23,6 +28,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -66,6 +72,7 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 64.dp),
+            singleLine = true,
         )
         Box(modifier = Modifier.height(errorTextHeight)) {
             state.loginError?.let {
@@ -78,12 +85,34 @@ fun SignInScreen(
         }
 
         OutlinedTextField(
-            value = state.password,
+            value = state.textPassword,
             onValueChange = { signInViewModel.onPasswordChanged(it) },
-            placeholder = { Text(text = stringResource(R.string.password_place)) },
             isError = state.passwordError != null,
+            placeholder = { Text(text = stringResource(R.string.password_place)) },
             shape = RoundedCornerShape(8.dp),
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (state.passwordVisible) {
+                VisualTransformation.None
+            }
+            else PasswordVisualTransformation(),
+            trailingIcon = {
+                val image = if (state.passwordVisible)
+                    Icons.Default.Visibility
+                else
+                    Icons.Default.VisibilityOff
+
+                IconButton(onClick = {
+                    signInViewModel.togglePasswordVisibility()
+                }) {
+                    Icon(
+                        imageVector = image,
+                        contentDescription = if (state.passwordVisible) {
+                            stringResource(R.string.password_visible)
+                        }
+                        else stringResource(R.string.password_not_visible)
+                    )
+                }
+            },
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 8.dp)

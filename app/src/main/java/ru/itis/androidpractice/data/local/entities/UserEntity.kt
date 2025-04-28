@@ -18,8 +18,6 @@ data class UserEntity(
     var id: String = "",
     @ColumnInfo(name = "email")
     var email: String = "",
-    @ColumnInfo(name = "hash_password")
-    var hashPassword: String = "",
     @ColumnInfo(name = "username")
     var username: String = ""
 )

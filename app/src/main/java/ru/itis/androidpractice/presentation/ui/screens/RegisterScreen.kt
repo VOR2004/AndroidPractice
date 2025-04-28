@@ -3,6 +3,9 @@ package ru.itis.androidpractice.presentation.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,6 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -50,6 +54,7 @@ fun RegisterScreen(
             isError = state.loginError != null,
             placeholder = { Text(text = stringResource(R.string.login_place)) },
             shape = RoundedCornerShape(8.dp),
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 64.dp)
@@ -70,10 +75,33 @@ fun RegisterScreen(
             isError = state.passwordError != null,
             placeholder = { Text(text = stringResource(R.string.password_place)) },
             shape = RoundedCornerShape(8.dp),
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (state.passwordVisible) {
+                VisualTransformation.None
+            }
+            else PasswordVisualTransformation(),
+            trailingIcon = {
+                val image = if (state.passwordVisible)
+                    Icons.Default.Visibility
+                else
+                    Icons.Default.VisibilityOff
+
+                IconButton(onClick = {
+                    registerViewModel.togglePasswordVisibility()
+                }) {
+                    Icon(
+                        imageVector = image,
+                        contentDescription = if (state.passwordVisible) {
+                            stringResource(R.string.password_visible)
+                        }
+                        else stringResource(R.string.password_not_visible)
+                    )
+                }
+            },
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 8.dp)
+
         )
         Box(modifier = Modifier.height(errorTextHeight)) {
             state.passwordError?.let {
@@ -91,6 +119,7 @@ fun RegisterScreen(
             isError = state.nicknameError != null,
             placeholder = { Text(text = stringResource(R.string.nickname_place)) },
             shape = RoundedCornerShape(8.dp),
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp, vertical = 8.dp)

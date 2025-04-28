@@ -21,7 +21,7 @@ class SignInViewModel @Inject constructor(
 
     fun onPasswordChanged(newPassword: String) {
         viewState = viewState.copy(
-            password = newPassword,
+            textPassword = newPassword,
             passwordError = null
         )
     }
@@ -31,20 +31,26 @@ class SignInViewModel @Inject constructor(
             val result = signInUseCase.execute(
                 SignInUseCase.Input(
                     login = viewState.login,
-                    password = viewState.password
+                    password = viewState.textPassword
                 )
             )
 
             viewState = viewState.copy(
                 loginError = result.loginError,
                 passwordError = result.passwordError,
-                password = if (result.isSuccess) viewState.password else ""
+                textPassword = if (result.isSuccess) viewState.textPassword else ""
             )
 
             if (result.isSuccess) {
                 onSuccess()
             }
         }
+    }
+
+    fun togglePasswordVisibility() {
+        viewState = viewState.copy(
+            passwordVisible = !viewState.passwordVisible
+        )
     }
 }
 

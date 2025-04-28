@@ -1,6 +1,7 @@
 package ru.itis.androidpractice.domain.usecases
 
 import ru.itis.androidpractice.core.hasher.PasswordHasher
+import ru.itis.androidpractice.data.common.model.BaseUserModel
 import ru.itis.androidpractice.data.local.entities.UserEntity
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
@@ -45,7 +46,7 @@ class RegisterUseCase @Inject constructor(
             )
         }
 
-        val user = UserEntity(
+        val user = BaseUserModel(
             id = UUID.randomUUID().toString(),
             email = input.login,
             hashPassword = PasswordHasher.hash(input.password),
