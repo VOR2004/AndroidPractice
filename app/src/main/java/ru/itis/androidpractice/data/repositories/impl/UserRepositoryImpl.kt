@@ -1,34 +1,36 @@
 package ru.itis.androidpractice.data.repositories.impl
 
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.itis.androidpractice.data.local.dao.UserDao
+import ru.itis.androidpractice.data.local.datasource.UserLocalDataSource
 import ru.itis.androidpractice.data.local.entities.UserEntity
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
 import ru.itis.androidpractice.domain.repositories.UserRepository
+import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userDao: UserDao,
+    private val userLocalDataSource: UserLocalDataSource,
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
     override suspend fun saveUser(user: UserEntity) {
         withContext(Dispatchers.IO) {
-            userRemoteDataSource.insertUser(user)
-            userDao.insertUser(user)
+            val remoteResult = userRemoteDataSource.insertUser(user)
+            remoteResult.onSuccess {
+                userLocalDataSource.insertUser(user)
+            }
         }
     }
 
     override suspend fun getUser(id: String): UserEntity? {
         return withContext(Dispatchers.IO) {
-            val localUser = userDao.getUser(id)
+            val localUser = userLocalDataSource.getUser(id)
             if (localUser != null) {
-                return@withContext localUser
+                localUser
             } else {
-                val remoteUser = userRemoteDataSource.getUser(id)
-                return@withContext remoteUser?.also {
-                    userDao.insertUser(it)
+                val remoteResult = userRemoteDataSource.getUser(id)
+                remoteResult.getOrNull()?.also { user ->
+                    userLocalDataSource.insertUser(user)
                 }
             }
         }
@@ -36,13 +38,13 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUserByEmail(email: String): UserEntity? {
         return withContext(Dispatchers.IO) {
-            val localUser = userDao.getUserByEmail(email)
+            val localUser = userLocalDataSource.getUserByEmail(email)
             if (localUser != null) {
-                return@withContext localUser
+                localUser
             } else {
-                val remoteUser = userRemoteDataSource.getUserByEmail(email)
-                return@withContext remoteUser?.also{
-                    userDao.insertUser(it)
+                val remoteResult = userRemoteDataSource.getUserByEmail(email)
+                remoteResult.getOrNull()?.also { user ->
+                    userLocalDataSource.insertUser(user)
                 }
             }
         }
@@ -50,13 +52,15 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun isEmailTaken(email: String): Boolean {
         return withContext(Dispatchers.IO) {
-            userRemoteDataSource.isEmailTaken(email)
+            val remoteResult = userRemoteDataSource.isEmailTaken(email)
+            remoteResult.getOrDefault(false)
         }
     }
 
     override suspend fun isUsernameTaken(username: String): Boolean {
         return withContext(Dispatchers.IO) {
-            userRemoteDataSource.isUsernameTaken(username)
+            val remoteResult = userRemoteDataSource.isUsernameTaken(username)
+            remoteResult.getOrDefault(false)
         }
     }
 }

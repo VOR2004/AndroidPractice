@@ -1,4 +1,4 @@
-package ru.itis.androidpractice.core.utils.errormessages
+package ru.itis.androidpractice.core.validators.errormessages
 
 object ErrorMessages {
     const val INCORRECT_EMAIL = "Email is incorrect"

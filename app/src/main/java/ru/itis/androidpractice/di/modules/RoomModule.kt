@@ -7,17 +7,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.itis.androidpractice.core.utils.PasswordHasher
 import ru.itis.androidpractice.data.local.dao.UserDao
 import ru.itis.androidpractice.data.local.dbinstance.AppDatabase
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object UserModule {
-    @Provides
-    @Singleton
-    fun providePasswordHasher(): PasswordHasher = PasswordHasher()
+object RoomModule {
 
     @Provides
     @Singleton

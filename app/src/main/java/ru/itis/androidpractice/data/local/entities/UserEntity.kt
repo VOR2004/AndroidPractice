@@ -5,9 +5,6 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-import com.google.firebase.firestore.IgnoreExtraProperties
-
-@IgnoreExtraProperties
 @Entity(
     tableName = "users",
     indices = [

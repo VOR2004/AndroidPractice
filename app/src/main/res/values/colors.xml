@@ -12,4 +12,5 @@
     <color name="default_button_color_disabled">#201631</color>
     <color name="default_secondary_gray_color">#525252</color>
     <color name="default_light_blue_color">#494961</color>
+    <color name="secondary_light_blue_color">#19494961</color>
 </resources>

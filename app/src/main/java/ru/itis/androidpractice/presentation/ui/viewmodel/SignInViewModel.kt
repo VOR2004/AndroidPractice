@@ -1,53 +1,48 @@
 package ru.itis.androidpractice.presentation.ui.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.itis.androidpractice.domain.usecases.SignInUseCase
+import ru.itis.androidpractice.presentation.ui.screenstates.SignInState
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
-) : ViewModel() {
+) : BaseViewModel<SignInState>(SignInState()) {
 
-    var login by mutableStateOf("")
-        private set
-
-    var password by mutableStateOf("")
-        private set
-
-    var loginError by mutableStateOf<String?>(null)
-        private set
-
-    var passwordError by mutableStateOf<String?>(null)
-        private set
-
-    fun onLoginChanged(value: String) {
-        login = value
-        if (loginError != null) loginError = null
+    fun onLoginChanged(newLogin: String) {
+        viewState = viewState.copy(
+            login = newLogin,
+            loginError = null
+        )
     }
 
-    fun onPasswordChanged(value: String) {
-        password = value
-        if (passwordError != null) passwordError = null
+    fun onPasswordChanged(newPassword: String) {
+        viewState = viewState.copy(
+            password = newPassword,
+            passwordError = null
+        )
     }
 
     fun signIn(onSuccess: () -> Unit) {
         viewModelScope.launch {
-            val result = signInUseCase.execute(SignInUseCase.Input(login, password))
+            val result = signInUseCase.execute(
+                SignInUseCase.Input(
+                    login = viewState.login,
+                    password = viewState.password
+                )
+            )
 
-            loginError = result.loginError
-            passwordError = result.passwordError
+            viewState = viewState.copy(
+                loginError = result.loginError,
+                passwordError = result.passwordError,
+                password = if (result.isSuccess) viewState.password else ""
+            )
 
             if (result.isSuccess) {
                 onSuccess()
-            } else {
-                password = ""
             }
         }
     }

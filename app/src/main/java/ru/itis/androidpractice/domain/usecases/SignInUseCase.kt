@@ -1,6 +1,6 @@
 package ru.itis.androidpractice.domain.usecases
 
-import ru.itis.androidpractice.core.utils.PasswordHasher
+import ru.itis.androidpractice.core.hasher.PasswordHasher
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
 import ru.itis.androidpractice.domain.validation.EmailValidator
@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(
     private val userRepository: UserRepository,
-    private val passwordHasher: PasswordHasher,
     private val emailValidator: EmailValidator
 ) {
     data class Input(val login: String, val password: String)
@@ -27,7 +26,7 @@ class SignInUseCase @Inject constructor(
         val user = userRepository.getUserByEmail(input.login)
             ?: return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
 
-        if (!passwordHasher.verify(input.password, user.hashPassword)) {
+        if (!PasswordHasher.verify(input.password, user.hashPassword)) {
             return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
         }
 

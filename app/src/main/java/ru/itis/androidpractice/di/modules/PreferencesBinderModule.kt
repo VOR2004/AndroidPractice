@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.itis.androidpractice.data.local.preferences.impl.UserPreferencesImpl
-import ru.itis.androidpractice.domain.preferences.UserPreferences
+import ru.itis.androidpractice.data.local.preferences.UserPreferences
 import javax.inject.Singleton
 
 @Module

@@ -1,4 +1,4 @@
-package ru.itis.androidpractice.domain.preferences
+package ru.itis.androidpractice.data.local.preferences
 
 import kotlinx.coroutines.flow.Flow
 

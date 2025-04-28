@@ -4,16 +4,19 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.itis.androidpractice.core.utils.DefaultEmailValidator
-import ru.itis.androidpractice.core.utils.DefaultNicknameValidator
-import ru.itis.androidpractice.core.utils.DefaultPasswordValidator
+import ru.itis.androidpractice.core.observer.NetworkConnectivityObserver
+import ru.itis.androidpractice.core.observer.impl.NetworkConnectivityObserverImpl
+import ru.itis.androidpractice.core.validators.DefaultEmailValidator
+import ru.itis.androidpractice.core.validators.DefaultNicknameValidator
+import ru.itis.androidpractice.core.validators.DefaultPasswordValidator
 import ru.itis.androidpractice.domain.validation.EmailValidator
 import ru.itis.androidpractice.domain.validation.PasswordValidator
 import ru.itis.androidpractice.domain.validation.UsernameValidator
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface ValidationBinderModule {
+interface UtilityBinderModule {
 
     @Binds
     fun bindEmailValidator(impl: DefaultEmailValidator): EmailValidator
@@ -23,4 +26,7 @@ interface ValidationBinderModule {
 
     @Binds
     fun bindUsernameValidator(impl: DefaultNicknameValidator): UsernameValidator
+
+    @Binds
+    fun bindConnectivityObserver_toImpl(impl: NetworkConnectivityObserverImpl): NetworkConnectivityObserver
 }

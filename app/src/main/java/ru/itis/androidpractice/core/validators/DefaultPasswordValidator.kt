@@ -1,6 +1,6 @@
-package ru.itis.androidpractice.core.utils
+package ru.itis.androidpractice.core.validators
 
-import ru.itis.androidpractice.core.utils.errormessages.ErrorMessages
+import ru.itis.androidpractice.core.validators.errormessages.ErrorMessages
 import ru.itis.androidpractice.domain.validation.PasswordValidator
 import javax.inject.Inject
 

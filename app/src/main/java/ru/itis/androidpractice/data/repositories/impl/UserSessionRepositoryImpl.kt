@@ -1,7 +1,7 @@
 package ru.itis.androidpractice.data.repositories.impl
 
 import kotlinx.coroutines.flow.Flow
-import ru.itis.androidpractice.domain.preferences.UserPreferences
+import ru.itis.androidpractice.data.local.preferences.UserPreferences
 import ru.itis.androidpractice.domain.repositories.UserSessionRepository
 import javax.inject.Inject
 

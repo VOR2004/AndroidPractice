@@ -1,6 +1,6 @@
 package ru.itis.androidpractice.domain.usecases
 
-import ru.itis.androidpractice.core.utils.PasswordHasher
+import ru.itis.androidpractice.core.hasher.PasswordHasher
 import ru.itis.androidpractice.data.local.entities.UserEntity
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val userRepository: UserRepository,
-    private val passwordHasher: PasswordHasher,
     private val emailValidator: EmailValidator,
     private val passwordValidator: PasswordValidator,
     private val usernameValidator: UsernameValidator
@@ -49,7 +48,7 @@ class RegisterUseCase @Inject constructor(
         val user = UserEntity(
             id = UUID.randomUUID().toString(),
             email = input.login,
-            hashPassword = passwordHasher.hash(input.password),
+            hashPassword = PasswordHasher.hash(input.password),
             username = input.nickname
         )
 

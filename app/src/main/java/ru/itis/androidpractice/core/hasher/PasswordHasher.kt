@@ -1,11 +1,8 @@
-package ru.itis.androidpractice.core.utils
+package ru.itis.androidpractice.core.hasher
 
 import org.mindrot.jbcrypt.BCrypt
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PasswordHasher @Inject constructor() {
+object PasswordHasher {
     fun hash(password: String): String {
         return BCrypt.hashpw(password, BCrypt.gensalt())
     }
