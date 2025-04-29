@@ -59,4 +59,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
         !snapshot.isEmpty
     }
+
+    override suspend fun getHashPasswordByEmail(email: String): Result<String?> = safeCall {
+        val snapshot = usersCollection
+            .whereEqualTo("email", email)
+            .limit(1)
+            .get()
+            .await()
+
+        val hash = snapshot.documents.firstOrNull()
+            ?.toObject(FirebaseUser::class.java)
+            ?.hashPassword
+
+        hash
+    }
 }

@@ -8,4 +8,5 @@ interface UserRemoteDataSource {
     suspend fun getUserByEmail(email: String): Result<BaseUserModel?>
     suspend fun isEmailTaken(email: String): Result<Boolean>
     suspend fun isUsernameTaken(username: String): Result<Boolean>
+    suspend fun getHashPasswordByEmail(email: String): Result<String?>
 }

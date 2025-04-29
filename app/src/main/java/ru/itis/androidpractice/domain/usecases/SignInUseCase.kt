@@ -23,10 +23,10 @@ class SignInUseCase @Inject constructor(
             return SignInResult(loginError = loginError)
         }
 
-        val user = userRepository.getUserByEmail(input.login)
+        val hash = userRepository.getHashPasswordByEmail(input.login)
             ?: return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
 
-        if (!PasswordHasher.verify(input.password, user.hashPassword)) {
+        if (!PasswordHasher.verify(input.password, hash)) {
             return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
         }
 
