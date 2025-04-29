@@ -63,10 +63,4 @@ class UserRepositoryImpl @Inject constructor(
             remoteResult.getOrDefault(false)
         }
     }
-
-    override suspend fun getHashPasswordByEmail(email: String): String? {
-        return withContext(Dispatchers.IO) {
-            userRemoteDataSource.getHashPasswordByEmail(email).getOrNull()
-        }
-    }
 }

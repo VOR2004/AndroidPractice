@@ -35,7 +35,7 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
-    fun registerUser(onSuccess: () -> Unit) {
+    fun registerUser() {
         viewModelScope.launch {
             val isConnected = checkInternetUseCase.invoke()
 
@@ -63,10 +63,6 @@ class RegisterViewModel @Inject constructor(
                 passwordError = result.passwordError,
                 nicknameError = result.nicknameError
             )
-
-            if (result.isSuccess) {
-                onSuccess()
-            }
         }
     }
 

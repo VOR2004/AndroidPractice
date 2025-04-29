@@ -6,22 +6,21 @@ import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.itis.androidpractice.presentation.ui.viewmodel.MainViewModel
+import ru.itis.androidpractice.presentation.ui.viewmodel.SessionViewModel
 
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = hiltViewModel()
+    mainViewModel: SessionViewModel = hiltViewModel()
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Button(onClick =
-            {
-                mainViewModel.logout()
-            },
-            Modifier.fillMaxSize()
-        ){}
-    }
+        Button(
+            onClick = { mainViewModel.signOut() },
+            modifier = Modifier.fillMaxSize()
+        ) {
 
+        }
+    }
 }

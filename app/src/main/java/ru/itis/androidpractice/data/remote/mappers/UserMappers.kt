@@ -2,7 +2,7 @@ package ru.itis.androidpractice.data.remote.mappers
 
 import ru.itis.androidpractice.data.common.model.BaseUserModel
 import ru.itis.androidpractice.data.local.entities.UserEntity
-import ru.itis.androidpractice.data.remote.models.FirebaseUser
+import ru.itis.androidpractice.data.remote.models.UserFirebase
 
 object UserMappers {
 
@@ -12,17 +12,15 @@ object UserMappers {
         username = username
     )
 
-    fun BaseUserModel.toFirebaseUser() = FirebaseUser(
+    fun BaseUserModel.toFirebaseUser() = UserFirebase(
         id = id,
         email = email,
-        hashPassword = hashPassword,
         username = username
     )
 
-    fun FirebaseUser.toBaseUserModel() = BaseUserModel(
+    fun UserFirebase.toBaseUserModel() = BaseUserModel(
         id = id,
         email = email,
-        hashPassword = hashPassword,
         username = username
     )
 

@@ -1,13 +1,13 @@
 package ru.itis.androidpractice.domain.usecases
 
-import ru.itis.androidpractice.core.hasher.PasswordHasher
-import ru.itis.androidpractice.domain.repositories.UserRepository
+import com.google.firebase.FirebaseException
+import ru.itis.androidpractice.domain.services.FirebaseAuthService
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
 import ru.itis.androidpractice.domain.validation.EmailValidator
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(
-    private val userRepository: UserRepository,
+    private val authService: FirebaseAuthService,
     private val emailValidator: EmailValidator
 ) {
     data class Input(val login: String, val password: String)
@@ -19,17 +19,13 @@ class SignInUseCase @Inject constructor(
 
     suspend fun execute(input: Input): SignInResult {
         val loginError = emailValidator.getErrorMessage(input.login)
-        if (loginError != null) {
-            return SignInResult(loginError = loginError)
+        if (loginError != null) return SignInResult(loginError = loginError)
+
+        return try {
+            authService.signIn(input.login, input.password)
+            SignInResult(isSuccess = true)
+        } catch (_: FirebaseException) {
+            SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
         }
-
-        val hash = userRepository.getHashPasswordByEmail(input.login)
-            ?: return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
-
-        if (!PasswordHasher.verify(input.password, hash)) {
-            return SignInResult(passwordError = AuthConstants.INCORRECT_INPUT)
-        }
-
-        return SignInResult(isSuccess = true)
     }
 }

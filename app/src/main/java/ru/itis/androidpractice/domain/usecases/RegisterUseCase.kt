@@ -1,18 +1,18 @@
 package ru.itis.androidpractice.domain.usecases
 
-import ru.itis.androidpractice.core.hasher.PasswordHasher
+import com.google.firebase.FirebaseException
 import ru.itis.androidpractice.data.common.model.BaseUserModel
-import ru.itis.androidpractice.data.local.entities.UserEntity
+import ru.itis.androidpractice.domain.services.FirebaseAuthService
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants
 import ru.itis.androidpractice.domain.validation.EmailValidator
 import ru.itis.androidpractice.domain.validation.PasswordValidator
 import ru.itis.androidpractice.domain.validation.UsernameValidator
-import java.util.UUID
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val userRepository: UserRepository,
+    private val authService: FirebaseAuthService,
     private val emailValidator: EmailValidator,
     private val passwordValidator: PasswordValidator,
     private val usernameValidator: UsernameValidator
@@ -46,15 +46,17 @@ class RegisterUseCase @Inject constructor(
             )
         }
 
-        val user = BaseUserModel(
-            id = UUID.randomUUID().toString(),
-            email = input.login,
-            hashPassword = PasswordHasher.hash(input.password),
-            username = input.nickname
-        )
-
-        userRepository.saveUser(user)
-
-        return ValidationResult(isSuccess = true)
+        return try {
+            val userId = authService.signUp(input.login, input.password)
+            val user = BaseUserModel(
+                id = userId,
+                email = input.login,
+                username = input.nickname
+            )
+            userRepository.saveUser(user)
+            ValidationResult(isSuccess = true)
+        } catch (_: FirebaseException) {
+            return ValidationResult(isSuccess = false)
+        }
     }
 }

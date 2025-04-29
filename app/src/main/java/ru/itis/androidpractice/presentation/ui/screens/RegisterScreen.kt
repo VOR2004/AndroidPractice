@@ -136,7 +136,7 @@ fun RegisterScreen(
 
         ButtonDefault(
             text = stringResource(R.string.sign_up),
-            onClick = { registerViewModel.registerUser(onSuccess = onNavigateToSignIn) }
+            onClick = { registerViewModel.registerUser() }
         )
 
         HorizontalDivider(

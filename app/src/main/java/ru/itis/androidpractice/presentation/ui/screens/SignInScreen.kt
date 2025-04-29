@@ -44,7 +44,6 @@ fun SignInScreen(
     signInViewModel: SignInViewModel = hiltViewModel(),
     onNavigateToRegister: () -> Unit,
     onNavigateToMain: () -> Unit,
-    onSignedIn: () -> Unit
 ) {
 
     val errorTextHeight = 16.dp
@@ -134,7 +133,6 @@ fun SignInScreen(
                 signInViewModel.signIn(
                     onSuccess = {
                         onNavigateToMain()
-                        onSignedIn()
                     }
                 )
             }

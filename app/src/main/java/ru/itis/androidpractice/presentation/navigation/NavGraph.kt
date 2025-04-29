@@ -9,7 +9,7 @@ import ru.itis.androidpractice.presentation.ui.screens.RegisterScreen
 import ru.itis.androidpractice.presentation.ui.screens.SignInScreen
 
 @Composable
-fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean, onSignedIn: () -> Unit) {
+fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
 
     val startDestination = if (isSignedIn) Routes.Main else Routes.SignIn
 
@@ -35,7 +35,6 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean, onSigne
                         popUpTo(Routes.SignIn) { inclusive = true }
                     }
                 },
-                onSignedIn = onSignedIn
             )
         }
         composable<Routes.Main> {

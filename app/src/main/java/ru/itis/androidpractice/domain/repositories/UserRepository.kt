@@ -8,5 +8,4 @@ interface UserRepository {
     suspend fun getUserByEmail(email: String): BaseUserModel?
     suspend fun isEmailTaken(email: String): Boolean
     suspend fun isUsernameTaken(username: String): Boolean
-    suspend fun getHashPasswordByEmail(email: String): String?
 }

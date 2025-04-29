@@ -12,7 +12,7 @@ import ru.itis.androidpractice.presentation.ui.viewmodel.SessionViewModel
 
 @Composable
 fun AppStart(sessionViewModel: SessionViewModel = hiltViewModel()) {
-    val isSignedIn by sessionViewModel.isSignedIn.collectAsState()
+    val authState by sessionViewModel.authState.collectAsState()
     val isLoading by sessionViewModel.isLoading.collectAsState()
     val navController = rememberNavController()
 
@@ -25,8 +25,7 @@ fun AppStart(sessionViewModel: SessionViewModel = hiltViewModel()) {
             true -> LoadingScreen()
             false -> SetupNavGraph(
                 navController = navController,
-                isSignedIn = isSignedIn,
-                onSignedIn = { sessionViewModel.setSignedIn(true) }
+                isSignedIn = authState
             )
         }
     }

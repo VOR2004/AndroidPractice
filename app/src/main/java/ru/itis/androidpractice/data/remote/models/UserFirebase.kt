@@ -1,8 +1,7 @@
 package ru.itis.androidpractice.data.remote.models
 
-data class FirebaseUser(
+data class UserFirebase(
     val id: String = "",
     val email: String = "",
-    val hashPassword: String = "",
     val username: String = ""
 )

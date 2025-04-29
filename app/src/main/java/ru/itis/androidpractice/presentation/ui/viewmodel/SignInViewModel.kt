@@ -55,9 +55,7 @@ class SignInViewModel @Inject constructor(
                 textPassword = if (result.isSuccess) viewState.textPassword else ""
             )
 
-            if (result.isSuccess) {
-                onSuccess()
-            }
+            if (result.isSuccess) onSuccess()
         }
     }
 

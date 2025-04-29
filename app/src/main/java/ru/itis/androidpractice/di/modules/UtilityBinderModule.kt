@@ -12,7 +12,6 @@ import ru.itis.androidpractice.core.validators.DefaultPasswordValidator
 import ru.itis.androidpractice.domain.validation.EmailValidator
 import ru.itis.androidpractice.domain.validation.PasswordValidator
 import ru.itis.androidpractice.domain.validation.UsernameValidator
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

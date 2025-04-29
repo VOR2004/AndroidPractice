@@ -1,13 +1,12 @@
 package ru.itis.androidpractice.data.remote.datasource.impl
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 import ru.itis.androidpractice.data.common.model.BaseUserModel
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
 import ru.itis.androidpractice.data.remote.mappers.UserMappers.toBaseUserModel
 import ru.itis.androidpractice.data.remote.mappers.UserMappers.toFirebaseUser
-import ru.itis.androidpractice.data.remote.models.FirebaseUser
+import ru.itis.androidpractice.data.remote.models.UserFirebase
 import javax.inject.Inject
 import ru.itis.androidpractice.data.remote.utils.SafeCall.safeCall
 
@@ -26,18 +25,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getUser(id: String): Result<BaseUserModel?> = safeCall {
         val snapshot = usersCollection.document(id).get().await()
-        snapshot.toObject(FirebaseUser::class.java)?.toBaseUserModel()
+        snapshot.toObject(UserFirebase::class.java)?.toBaseUserModel()
     }
 
     override suspend fun getUserByEmail(email: String): Result<BaseUserModel?> = safeCall {
         val snapshot = usersCollection
             .whereEqualTo("email", email)
             .limit(1)
-            .get(Source.SERVER)
+            .get()
             .await()
 
         snapshot.documents.firstOrNull()
-            ?.toObject(FirebaseUser::class.java)
+            ?.toObject(UserFirebase::class.java)
             ?.toBaseUserModel()
     }
 
@@ -45,7 +44,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("email", email)
             .limit(1)
-            .get(Source.SERVER)
+            .get()
             .await()
 
         !snapshot.isEmpty
@@ -55,23 +54,9 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("username", username)
             .limit(1)
-            .get(Source.SERVER)
+            .get()
             .await()
 
         !snapshot.isEmpty
-    }
-
-    override suspend fun getHashPasswordByEmail(email: String): Result<String?> = safeCall {
-        val snapshot = usersCollection
-            .whereEqualTo("email", email)
-            .limit(1)
-            .get(Source.SERVER)
-            .await()
-
-        val hash = snapshot.documents.firstOrNull()
-            ?.toObject(FirebaseUser::class.java)
-            ?.hashPassword
-
-        hash
     }
 }
