@@ -11,34 +11,34 @@ import ru.itis.androidpractice.presentation.ui.screens.SignInScreen
 @Composable
 fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean, onSignedIn: () -> Unit) {
 
-    val startDestination = if (isSignedIn) Routes.Main.route else Routes.SignIn.route
+    val startDestination = if (isSignedIn) Routes.Main else Routes.SignIn
 
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(Routes.Register.route) {
+        composable<Routes.Register> {
             RegisterScreen(
                 onNavigateToSignIn = {
-                    navController.navigate(Routes.SignIn.route) {
-                        popUpTo(Routes.Register.route) { inclusive = true }
+                    navController.navigate(Routes.SignIn) {
+                        popUpTo(Routes.Register) { inclusive = true }
                     }
                 }
             )
         }
-        composable(Routes.SignIn.route) {
+        composable<Routes.SignIn> {
             SignInScreen(
                 onNavigateToRegister = {
-                    navController.navigate(Routes.Register.route) {
-                        popUpTo(Routes.SignIn.route) { inclusive = true }
+                    navController.navigate(Routes.Register) {
+                        popUpTo(Routes.SignIn) { inclusive = true }
                     }
                 },
                 onNavigateToMain = {
-                    navController.navigate(Routes.Main.route) {
-                        popUpTo(Routes.SignIn.route) { inclusive = true }
+                    navController.navigate(Routes.Main) {
+                        popUpTo(Routes.SignIn) { inclusive = true }
                     }
                 },
                 onSignedIn = onSignedIn
             )
         }
-        composable(Routes.Main.route) {
+        composable<Routes.Main> {
             MainScreen()
         }
     }

@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.itis.androidpractice.R
+import ru.itis.androidpractice.presentation.ui.uiparts.banners.NoConnectionBanner
 import ru.itis.androidpractice.presentation.ui.uiparts.buttons.ButtonDefault
 import ru.itis.androidpractice.presentation.ui.uiparts.buttons.ButtonEnter
 import ru.itis.androidpractice.presentation.ui.viewmodel.SignInViewModel
@@ -159,4 +160,11 @@ fun SignInScreen(
             ButtonEnter(onClick = onNavigateToRegister)
         }
     }
+
+    if (state.showNoConnectionBanner) {
+        NoConnectionBanner(
+            onDismiss = { signInViewModel.dismissNoConnectionBanner() }
+        )
+    }
+
 }

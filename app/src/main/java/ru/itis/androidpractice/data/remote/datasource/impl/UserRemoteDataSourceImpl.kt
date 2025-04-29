@@ -1,6 +1,7 @@
 package ru.itis.androidpractice.data.remote.datasource.impl
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.tasks.await
 import ru.itis.androidpractice.data.common.model.BaseUserModel
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
@@ -32,7 +33,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("email", email)
             .limit(1)
-            .get()
+            .get(Source.SERVER)
             .await()
 
         snapshot.documents.firstOrNull()
@@ -44,7 +45,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("email", email)
             .limit(1)
-            .get()
+            .get(Source.SERVER)
             .await()
 
         !snapshot.isEmpty
@@ -54,7 +55,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("username", username)
             .limit(1)
-            .get()
+            .get(Source.SERVER)
             .await()
 
         !snapshot.isEmpty
@@ -64,7 +65,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val snapshot = usersCollection
             .whereEqualTo("email", email)
             .limit(1)
-            .get()
+            .get(Source.SERVER)
             .await()
 
         val hash = snapshot.documents.firstOrNull()

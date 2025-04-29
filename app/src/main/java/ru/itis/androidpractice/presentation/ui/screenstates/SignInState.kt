@@ -10,5 +10,7 @@ data class SignInState(
 
     val passwordError: String? = null,
 
-    val passwordVisible: Boolean = false
+    val passwordVisible: Boolean = false,
+
+    val showNoConnectionBanner: Boolean = false,
 )
