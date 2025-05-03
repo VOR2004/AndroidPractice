@@ -1,6 +1,6 @@
-package ru.itis.androidpractice.data.remote.models
+package ru.itis.androidpractice.domain.model
 
-data class UserFirebase(
+data class BaseUserModel(
     val id: String = "",
     val email: String = "",
     val username: String = ""

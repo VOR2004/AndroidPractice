@@ -2,30 +2,31 @@ package ru.itis.androidpractice.data.remote.datasource.impl
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.data.common.mappers.UserFireBaseMapper
+import ru.itis.androidpractice.domain.model.BaseUserModel
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
-import ru.itis.androidpractice.data.remote.mappers.UserMappers.toBaseUserModel
-import ru.itis.androidpractice.data.remote.mappers.UserMappers.toFirebaseUser
-import ru.itis.androidpractice.data.remote.models.UserFirebase
+import ru.itis.androidpractice.data.remote.entities.UserFirebaseEntity
 import javax.inject.Inject
 import ru.itis.androidpractice.data.remote.utils.SafeCall.safeCall
 
 class UserRemoteDataSourceImpl @Inject constructor(
-    firestore: FirebaseFirestore
+    firestore: FirebaseFirestore,
+    private val mapper: UserFireBaseMapper
 ) : UserRemoteDataSource {
 
     private val usersCollection = firestore.collection("users")
 
     override suspend fun insertUser(user: BaseUserModel): Result<Unit> = safeCall {
         usersCollection.document(user.id)
-            .set(user.toFirebaseUser())
+            .set(mapper.toFirebaseUserEntity(user))
             .await()
         Unit
     }
 
     override suspend fun getUser(id: String): Result<BaseUserModel?> = safeCall {
         val snapshot = usersCollection.document(id).get().await()
-        snapshot.toObject(UserFirebase::class.java)?.toBaseUserModel()
+        snapshot.toObject(UserFirebaseEntity::class.java)
+        ?.let(mapper::toBaseUserModel)
     }
 
     override suspend fun getUserByEmail(email: String): Result<BaseUserModel?> = safeCall {
@@ -36,8 +37,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
             .await()
 
         snapshot.documents.firstOrNull()
-            ?.toObject(UserFirebase::class.java)
-            ?.toBaseUserModel()
+            ?.toObject(UserFirebaseEntity::class.java)
+            ?.let(mapper::toBaseUserModel)
     }
 
     override suspend fun isEmailTaken(email: String): Result<Boolean> = safeCall {

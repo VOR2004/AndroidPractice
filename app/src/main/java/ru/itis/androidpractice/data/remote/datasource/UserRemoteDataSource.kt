@@ -1,6 +1,6 @@
 package ru.itis.androidpractice.data.remote.datasource
 
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 
 interface UserRemoteDataSource {
     suspend fun insertUser(user: BaseUserModel): Result<Unit>

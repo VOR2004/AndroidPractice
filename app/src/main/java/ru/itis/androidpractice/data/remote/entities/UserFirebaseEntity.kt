@@ -1,6 +1,6 @@
-package ru.itis.androidpractice.data.common.model
+package ru.itis.androidpractice.data.remote.entities
 
-data class BaseUserModel(
+data class UserFirebaseEntity(
     val id: String = "",
     val email: String = "",
     val username: String = ""

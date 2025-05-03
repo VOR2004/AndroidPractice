@@ -18,13 +18,13 @@ import ru.itis.androidpractice.domain.validation.UsernameValidator
 interface UtilityBinderModule {
 
     @Binds
-    fun bindEmailValidator(impl: DefaultEmailValidator): EmailValidator
+    fun bindEmailValidator_toImpl(impl: DefaultEmailValidator): EmailValidator
 
     @Binds
-    fun bindPasswordValidator(impl: DefaultPasswordValidator): PasswordValidator
+    fun bindPasswordValidator_toImpl(impl: DefaultPasswordValidator): PasswordValidator
 
     @Binds
-    fun bindUsernameValidator(impl: DefaultNicknameValidator): UsernameValidator
+    fun bindUsernameValidator_toImpl(impl: DefaultNicknameValidator): UsernameValidator
 
     @Binds
     fun bindConnectivityObserver_toImpl(impl: NetworkConnectivityObserverImpl): NetworkConnectivityObserver

@@ -1,4 +1,4 @@
-package ru.itis.androidpractice.data.remote.auth.impl
+package ru.itis.androidpractice.data.remote.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException

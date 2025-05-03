@@ -2,7 +2,7 @@ package ru.itis.androidpractice.data.repositories.impl
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 import ru.itis.androidpractice.data.local.datasource.UserLocalDataSource
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
 import ru.itis.androidpractice.domain.repositories.UserRepository

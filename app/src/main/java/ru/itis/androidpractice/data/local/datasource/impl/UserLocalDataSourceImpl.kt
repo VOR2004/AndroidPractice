@@ -1,26 +1,26 @@
 package ru.itis.androidpractice.data.local.datasource.impl
 
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 import ru.itis.androidpractice.data.local.dao.UserDao
 import ru.itis.androidpractice.data.local.datasource.UserLocalDataSource
-import ru.itis.androidpractice.data.remote.mappers.UserMappers.toBaseUserModel
-import ru.itis.androidpractice.data.remote.mappers.UserMappers.toUserEntity
+import ru.itis.androidpractice.data.common.mappers.UserRoomMapper
 import javax.inject.Inject
 
 class UserLocalDataSourceImpl @Inject constructor(
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val mapper: UserRoomMapper
 ) : UserLocalDataSource {
 
     override suspend fun insertUser(user: BaseUserModel) {
-        userDao.insertUser(user.toUserEntity())
+        userDao.insertUser(mapper.toUserEntity(user))
     }
 
     override suspend fun getUser(id: String): BaseUserModel? {
-        return userDao.getUser(id)?.toBaseUserModel()
+        return userDao.getUser(id)?.let(mapper::toBaseUserModel)
     }
 
     override suspend fun getUserByEmail(email: String): BaseUserModel? {
-        return userDao.getUserByEmail(email)?.toBaseUserModel()
+        return userDao.getUserByEmail(email)?.let(mapper::toBaseUserModel)
     }
 
     override suspend fun isEmailTaken(email: String): Boolean {

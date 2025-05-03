@@ -1,7 +1,7 @@
 package ru.itis.androidpractice.domain.usecases
 
 import com.google.firebase.FirebaseException
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 import ru.itis.androidpractice.domain.services.FirebaseAuthService
 import ru.itis.androidpractice.domain.repositories.UserRepository
 import ru.itis.androidpractice.domain.usecases.messageconstants.AuthConstants

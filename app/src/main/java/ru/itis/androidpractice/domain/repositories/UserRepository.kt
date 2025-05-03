@@ -1,6 +1,6 @@
 package ru.itis.androidpractice.domain.repositories
 
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 
 interface UserRepository {
     suspend fun saveUser(user: BaseUserModel)

@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.itis.androidpractice.domain.services.FirebaseAuthService
-import ru.itis.androidpractice.data.remote.auth.impl.FirebaseAuthServiceImpl
+import ru.itis.androidpractice.data.remote.auth.FirebaseAuthServiceImpl
 import ru.itis.androidpractice.data.remote.datasource.UserRemoteDataSource
 import ru.itis.androidpractice.data.remote.datasource.impl.UserRemoteDataSourceImpl
 import javax.inject.Singleton

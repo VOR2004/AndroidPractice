@@ -1,6 +1,6 @@
 package ru.itis.androidpractice.data.local.datasource
 
-import ru.itis.androidpractice.data.common.model.BaseUserModel
+import ru.itis.androidpractice.domain.model.BaseUserModel
 
 interface UserLocalDataSource {
     suspend fun insertUser(user: BaseUserModel)

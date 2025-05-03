@@ -19,7 +19,6 @@ fun AppStart(sessionViewModel: SessionViewModel = hiltViewModel()) {
     Crossfade(
         targetState = isLoading,
         animationSpec = tween(durationMillis = 1200),
-        label = "AppLoadingCrossfade"
     ) { loading ->
         when(loading) {
             true -> LoadingScreen()
