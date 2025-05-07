@@ -10,4 +10,5 @@
     <string name="enter_sign_up">…or create new account</string>
     <string name="password_visible">Show password</string>
     <string name="password_not_visible">Dismiss password</string>
+    <string name="description_logout">Logout</string>
 </resources>
