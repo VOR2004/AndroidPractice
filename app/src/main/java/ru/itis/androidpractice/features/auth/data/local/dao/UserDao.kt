@@ -22,4 +22,7 @@ interface UserDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM users WHERE username = :username)")
     suspend fun isUsernameTaken(username: String): Boolean
+
+    @Query("SELECT username FROM users WHERE id = :id")
+    suspend fun getUserName(id: String): String?
 }

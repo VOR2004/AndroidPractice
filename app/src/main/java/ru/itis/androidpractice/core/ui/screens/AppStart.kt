@@ -7,7 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import ru.itis.androidpractice.core.ui.navigation.SetupNavGraph
+import ru.itis.androidpractice.core.navigation.SetupNavGraph
 import ru.itis.androidpractice.features.auth.presentation.ui.screens.LoadingScreen
 import ru.itis.androidpractice.core.session.presentaion.ui.viewmodel.SessionViewModel
 

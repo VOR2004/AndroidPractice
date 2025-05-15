@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
-import ru.itis.androidpractice.features.auth.data.local.datasource.UserLocalDataSource
-import ru.itis.androidpractice.features.auth.data.local.datasource.impl.UserLocalDataSourceImpl
+import ru.itis.androidpractice.core.user.data.local.datasource.UserLocalDataSource
+import ru.itis.androidpractice.core.user.data.local.datasource.impl.UserLocalDataSourceImpl
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)

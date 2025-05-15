@@ -3,6 +3,7 @@ package ru.itis.androidpractice.features.auth.presentation.ui.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.itis.androidpractice.core.ui.viewmodel.BaseViewModel
 import ru.itis.androidpractice.features.auth.domain.usecases.CheckInternetUseCase
 import ru.itis.androidpractice.features.auth.domain.usecases.RegisterUseCase
 import ru.itis.androidpractice.features.auth.presentation.ui.screenstates.RegisterState

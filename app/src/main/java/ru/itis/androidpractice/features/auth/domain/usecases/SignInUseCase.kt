@@ -1,7 +1,7 @@
 package ru.itis.androidpractice.features.auth.domain.usecases
 
 import com.google.firebase.FirebaseException
-import ru.itis.androidpractice.features.auth.domain.services.FirebaseAuthService
+import ru.itis.androidpractice.core.session.domain.services.FirebaseAuthService
 import ru.itis.androidpractice.features.auth.domain.usecases.messageconstants.AuthConstants
 import ru.itis.androidpractice.features.auth.domain.validation.EmailValidator
 import javax.inject.Inject

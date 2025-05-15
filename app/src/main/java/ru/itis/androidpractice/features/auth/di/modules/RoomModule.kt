@@ -1,14 +1,11 @@
 package ru.itis.androidpractice.features.auth.di.modules
 
-import android.content.Context
-import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.itis.androidpractice.features.auth.data.local.dao.UserDao
-import ru.itis.androidpractice.features.auth.data.local.dbinstance.AppDatabase
+import ru.itis.androidpractice.core.storage.data.dbinstance.AppDatabase
 import javax.inject.Singleton
 
 @Module

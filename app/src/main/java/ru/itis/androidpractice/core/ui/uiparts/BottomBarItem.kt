@@ -5,7 +5,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
-import ru.itis.androidpractice.core.ui.navigation.Routes
+import ru.itis.androidpractice.core.navigation.Routes
 
 data class BottomBarItem(
     val route: Routes,
