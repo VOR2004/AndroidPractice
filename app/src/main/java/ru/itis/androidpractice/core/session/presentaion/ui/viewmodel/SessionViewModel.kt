@@ -10,13 +10,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.itis.androidpractice.core.session.domain.services.FirebaseAuthService
-import ru.itis.androidpractice.core.session.domain.usecases.GetNameUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SessionViewModel @Inject constructor(
-    private val authService: FirebaseAuthService,
-    private val getNameUseCase: GetNameUseCase
+    private val authService: FirebaseAuthService
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -25,34 +23,20 @@ class SessionViewModel @Inject constructor(
     val authState: StateFlow<Boolean> = authService.observeAuthState()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.Companion.WhileSubscribed(5000),
             initialValue = false
         )
-
-    private val _userName = MutableStateFlow("")
-    val userName: StateFlow<String> = _userName
 
     init {
         viewModelScope.launch {
             authService.observeAuthState().first()
-            if (authService.getCurrentUserId() != null) {
-                _userName.value = getNameUseCase.invoke()
-            }
             _isLoading.value = false
-        }
-    }
-
-    fun reloadUserName() {
-        viewModelScope.launch {
-            val id = authService.getCurrentUserId()
-            _userName.value = if (id != null) getNameUseCase.invoke() else ""
         }
     }
 
     fun signOut() {
         viewModelScope.launch {
             authService.signOut()
-            _userName.value = ""
         }
     }
 }

@@ -23,14 +23,17 @@ import ru.itis.androidpractice.core.session.presentaion.ui.viewmodel.SessionView
 import ru.itis.androidpractice.core.navigation.Routes
 import ru.itis.androidpractice.core.ui.uiparts.BottomNavigationBar
 import ru.itis.androidpractice.R
+import ru.itis.androidpractice.features.profile.presentation.ui.viewmodel.ProfileViewModel
 
 @Composable
 fun ProfileScreen(
     sessionViewModel: SessionViewModel = hiltViewModel(),
+    profileViewModel: ProfileViewModel = hiltViewModel(),
     onNavigateTo: (Routes) -> Unit,
     currentRoute: Routes
 ) {
-    val userName by sessionViewModel.userName.collectAsStateWithLifecycle()
+
+    val state by profileViewModel.viewStates.collectAsStateWithLifecycle()
 
     Scaffold(
         bottomBar = {
@@ -63,7 +66,7 @@ fun ProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = userName,
+                    text = state.name,
                     fontSize = 32.sp,
                 )
             }

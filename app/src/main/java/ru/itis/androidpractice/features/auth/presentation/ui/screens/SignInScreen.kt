@@ -34,7 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.itis.androidpractice.R
 import ru.itis.androidpractice.features.auth.presentation.ui.uiparts.banners.NoConnectionBanner
-import ru.itis.androidpractice.features.auth.presentation.ui.uiparts.buttons.ButtonDefault
+import ru.itis.androidpractice.core.ui.uiparts.ButtonDefault
 import ru.itis.androidpractice.features.auth.presentation.ui.uiparts.buttons.ButtonEnter
 import ru.itis.androidpractice.features.auth.presentation.ui.viewmodel.SignInViewModel
 

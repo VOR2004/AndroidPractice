@@ -9,6 +9,7 @@ import ru.itis.androidpractice.features.auth.presentation.ui.screens.RegisterScr
 import ru.itis.androidpractice.features.auth.presentation.ui.screens.SignInScreen
 import ru.itis.androidpractice.features.people.presentation.screens.PeopleScreen
 import ru.itis.androidpractice.features.profile.presentation.ui.screens.ProfileScreen
+import ru.itis.androidpractice.features.topic.presentation.ui.screens.AddTopicScreen
 
 @Composable
 fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
@@ -49,7 +50,10 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
                         launchSingleTop = true
                     }
                 },
-                currentRoute = Routes.Main
+                currentRoute = Routes.Main,
+                onCreateClick = {
+                    navController.navigate(Routes.CreateTopic)
+                }
             )
         }
 
@@ -75,6 +79,10 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
                 },
                 currentRoute = Routes.People
             )
+        }
+
+        composable<Routes.CreateTopic> {
+            AddTopicScreen()
         }
     }
 }

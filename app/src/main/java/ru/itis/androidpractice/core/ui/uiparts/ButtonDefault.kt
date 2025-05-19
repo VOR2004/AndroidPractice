@@ -1,4 +1,4 @@
-package ru.itis.androidpractice.features.auth.presentation.ui.uiparts.buttons
+package ru.itis.androidpractice.core.ui.uiparts
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

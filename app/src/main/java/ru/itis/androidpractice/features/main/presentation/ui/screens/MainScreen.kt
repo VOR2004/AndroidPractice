@@ -16,6 +16,7 @@ import ru.itis.androidpractice.core.ui.uiparts.BottomNavigationBar
 fun MainScreen(
     onNavigateTo: (Routes) -> Unit,
     currentRoute: Routes,
+    onCreateClick: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -27,7 +28,7 @@ fun MainScreen(
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             IconButton(
-                onClick = {}
+                onClick = { onCreateClick() }
             ) { Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = null

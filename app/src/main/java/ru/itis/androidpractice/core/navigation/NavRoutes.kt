@@ -14,4 +14,8 @@ sealed class Routes {
     object Profile: Routes()
     @Serializable
     object People: Routes()
+    @Serializable
+    object CreateTopic : Routes()
+    @Serializable
+    object TopicDetails : Routes()
 }
