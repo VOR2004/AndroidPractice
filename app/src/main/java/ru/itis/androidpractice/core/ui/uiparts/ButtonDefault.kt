@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import ru.itis.androidpractice.R
 
 @Composable
-fun ButtonDefault(onClick: () -> Unit = {}, text: String) {
+fun ButtonDefault(onClick: () -> Unit = {}, text: String, modifier: Modifier) {
     Button(
         onClick = { onClick() },
         shape = RoundedCornerShape(8.dp),
@@ -23,9 +23,7 @@ fun ButtonDefault(onClick: () -> Unit = {}, text: String) {
             colorResource(R.color.default_button_color_disabled),
             colorResource(R.color.default_button_color_secondary)
         ),
-        modifier = Modifier
-            .padding(start = 32.dp, end = 32.dp, top = 48.dp )
-            .fillMaxWidth()
+        modifier = modifier,
     )
 
     {

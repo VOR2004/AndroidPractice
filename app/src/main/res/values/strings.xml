@@ -11,4 +11,7 @@
     <string name="password_visible">Show password</string>
     <string name="password_not_visible">Dismiss password</string>
     <string name="description_logout">Logout</string>
+    <string name="topic_title">Topic title</string>
+    <string name="topic_description">Topic description</string>
+    <string name="create_topic">Create topic</string>
 </resources>
