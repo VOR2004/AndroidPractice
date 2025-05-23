@@ -5,16 +5,9 @@ import ru.itis.androidpractice.core.user.domain.repositories.UserRepository
 import javax.inject.Inject
 
 class GetNameUseCase @Inject constructor(
-    private val authService: FirebaseAuthService,
-    private val userRepository: UserRepository
+    private val authService: FirebaseAuthService
 ) {
     suspend fun invoke(): String {
-        val id = authService.getCurrentUserId()
-        return if (id != null) {
-            val name = userRepository.getName(id)
-            name ?: ""
-        } else {
-            ""
-        }
+        return authService.getCurrentUserName() ?: ""
     }
 }

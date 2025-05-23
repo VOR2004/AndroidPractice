@@ -33,10 +33,4 @@ class SessionViewModel @Inject constructor(
             _isLoading.value = false
         }
     }
-
-    fun signOut() {
-        viewModelScope.launch {
-            authService.signOut()
-        }
-    }
 }

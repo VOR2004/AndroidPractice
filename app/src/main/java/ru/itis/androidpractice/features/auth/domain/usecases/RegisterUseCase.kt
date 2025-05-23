@@ -47,7 +47,11 @@ class RegisterUseCase @Inject constructor(
         }
 
         return try {
-            val userId = authService.signUp(input.login, input.password)
+            val userId = authService.signUp(
+                input.login,
+                input.password,
+                input.nickname
+            )
             val user = BaseUserModel(
                 id = userId,
                 email = input.login,

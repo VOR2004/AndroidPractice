@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ru.itis.androidpractice.core.session.presentaion.ui.viewmodel.SessionViewModel
 import ru.itis.androidpractice.core.navigation.Routes
 import ru.itis.androidpractice.core.ui.uiparts.BottomNavigationBar
 import ru.itis.androidpractice.R
@@ -27,7 +26,6 @@ import ru.itis.androidpractice.features.profile.presentation.ui.viewmodel.Profil
 
 @Composable
 fun ProfileScreen(
-    sessionViewModel: SessionViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     onNavigateTo: (Routes) -> Unit,
     currentRoute: Routes
@@ -48,7 +46,7 @@ fun ProfileScreen(
             .fillMaxWidth()
         ) {
             IconButton(
-                onClick = { sessionViewModel.signOut() },
+                onClick = { profileViewModel.signOut() },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(32.dp)
