@@ -4,12 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import ru.itis.androidpractice.features.main.presentation.ui.screens.MainScreen
 import ru.itis.androidpractice.features.auth.presentation.ui.screens.RegisterScreen
 import ru.itis.androidpractice.features.auth.presentation.ui.screens.SignInScreen
 import ru.itis.androidpractice.features.people.presentation.screens.PeopleScreen
 import ru.itis.androidpractice.features.profile.presentation.ui.screens.ProfileScreen
 import ru.itis.androidpractice.features.topic.presentation.ui.screens.AddTopicScreen
+import ru.itis.androidpractice.features.topic.presentation.ui.screens.TopicDetailsScreen
 
 @Composable
 fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
@@ -82,7 +84,16 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
         }
 
         composable<Routes.CreateTopic> {
-            AddTopicScreen()
+            AddTopicScreen(
+                navigateToTopic = { topicId ->
+                    navController.navigate(Routes.Topic(topicId))
+                }
+            )
+        }
+
+        composable<Routes.Topic> { backStackEntry ->
+            val topic: Routes.Topic = backStackEntry.toRoute()
+            TopicDetailsScreen(id = topic.topicId)
         }
     }
 }

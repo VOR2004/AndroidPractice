@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetNameUseCase @Inject constructor(
     private val authService: FirebaseAuthService
 ) {
-    suspend fun invoke(): String {
+    fun invoke(): String {
         return authService.getCurrentUserName() ?: ""
     }
 }

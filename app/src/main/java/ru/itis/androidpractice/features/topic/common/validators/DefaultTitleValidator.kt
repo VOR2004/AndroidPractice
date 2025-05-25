@@ -9,7 +9,7 @@ class DefaultTitleValidator @Inject constructor() : TitleValidator {
 
     override fun getErrorMessage(title: String): String? {
         return when {
-            title.isBlank() -> ErrorMessages.EMPTY_DESCRIPTION
+            title.isBlank() -> ErrorMessages.EMPTY_TITLE
             title.length > 100 -> ErrorMessages.TITLE_TOO_LONG
             else -> null
         }

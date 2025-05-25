@@ -6,4 +6,6 @@ object ErrorMessages {
 
     const val EMPTY_TITLE = "Title must not be empty"
     const val TITLE_TOO_LONG = "Title must contain less than 100 symbols"
+
+    const val COMMENT_TOO_LONG = "Text must contain less than 2000 symbols"
 }

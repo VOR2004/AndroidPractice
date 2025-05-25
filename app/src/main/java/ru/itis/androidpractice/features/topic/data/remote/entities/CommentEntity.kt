@@ -2,11 +2,11 @@ package ru.itis.androidpractice.features.topic.data.remote.entities
 
 import java.util.Date
 
-data class TopicEntity(
+data class CommentEntity(
     val id: String = "",
-    val title: String = "",
-    val description: String = "",
+    val topicId: String = "",
     val authorId: String = "",
+    val text: String = "",
     val createdAt: Date = Date(),
     val isDeleted: Boolean = false
 )

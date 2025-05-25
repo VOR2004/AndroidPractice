@@ -17,5 +17,5 @@ sealed class Routes {
     @Serializable
     object CreateTopic : Routes()
     @Serializable
-    object TopicDetails : Routes()
+    data class Topic(val topicId: String) : Routes()
 }

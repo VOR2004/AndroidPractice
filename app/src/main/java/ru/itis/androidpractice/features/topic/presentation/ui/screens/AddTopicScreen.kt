@@ -1,11 +1,15 @@
 package ru.itis.androidpractice.features.topic.presentation.ui.screens
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -13,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,6 +32,7 @@ import ru.itis.androidpractice.R
 @Composable
 fun AddTopicScreen(
     viewModel: AddTopicViewModel = hiltViewModel(),
+    navigateToTopic: (String) -> Unit
 ) {
     val state by viewModel.viewStates.collectAsStateWithLifecycle()
     val errorTextHeight = 16.dp
@@ -40,7 +46,10 @@ fun AddTopicScreen(
 
         Column(modifier = Modifier
             .padding(paddingValues)
-            .padding(16.dp)) {
+            .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -51,7 +60,8 @@ fun AddTopicScreen(
                 label = { Text(stringResource(R.string.topic_title)) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(start = 16.dp, end = 16.dp),
+                singleLine = true,
             )
             Box(modifier = Modifier
                 .height(errorTextHeight)
@@ -71,6 +81,10 @@ fun AddTopicScreen(
                     .fillMaxWidth()
                     .height(200.dp)
                     .padding(start = 16.dp, end = 16.dp)
+                    .scrollable(
+                        orientation = Orientation.Horizontal,
+                        state = rememberScrollState()
+                    ),
             )
             Box(modifier = Modifier
                 .height(errorTextHeight)
@@ -82,7 +96,11 @@ fun AddTopicScreen(
             }
 
             ButtonDefault(
-                onClick = { viewModel.addTopic() },
+                onClick = {
+                    viewModel.addTopic { topicId ->
+                        navigateToTopic(topicId)
+                    }
+                },
                 text = stringResource(R.string.create_topic),
                 modifier = Modifier
                     .padding(start = 32.dp, end = 32.dp, top = 48.dp)

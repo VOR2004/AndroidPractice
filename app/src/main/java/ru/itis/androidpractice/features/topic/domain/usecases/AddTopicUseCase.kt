@@ -1,7 +1,7 @@
 package ru.itis.androidpractice.features.topic.domain.usecases
 
 import ru.itis.androidpractice.features.topic.data.remote.entities.TopicEntity
-import ru.itis.androidpractice.features.topic.data.remote.repositories.TopicRepository
+import ru.itis.androidpractice.features.topic.domain.repositories.TopicRepository
 import ru.itis.androidpractice.features.topic.domain.validation.DescriptionValidator
 import ru.itis.androidpractice.features.topic.domain.validation.TitleValidator
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class AddTopicUseCase @Inject constructor(
     data class ValidationResult(
         val titleError: String? = null,
         val descriptionError: String? = null,
-        val isSuccess: Boolean = false
+        val topicId: String? = null
     )
 
     suspend fun execute(input: Input): ValidationResult {
@@ -32,8 +32,11 @@ class AddTopicUseCase @Inject constructor(
                 description = input.description,
                 authorId = input.authorId
             )
-            topicRepository.createTopic(topic)
-            ValidationResult(isSuccess = true)
+            val result = topicRepository.createTopic(topic)
+            result.fold(
+                onSuccess = { topicId -> ValidationResult(topicId = topicId) },
+                onFailure = { ValidationResult() }
+            )
         } catch (_: Exception) {
             ValidationResult()
         }

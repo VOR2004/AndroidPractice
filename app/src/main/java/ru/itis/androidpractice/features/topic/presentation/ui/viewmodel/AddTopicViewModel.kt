@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import ru.itis.androidpractice.core.ui.viewmodel.BaseViewModel
 import ru.itis.androidpractice.features.auth.domain.usecases.CheckInternetUseCase
 import ru.itis.androidpractice.features.topic.domain.usecases.AddTopicUseCase
-import ru.itis.androidpractice.features.topic.domain.usecases.GetIdUseCase
+import ru.itis.androidpractice.features.topic.domain.usecases.GetCurrentIdUseCase
 import ru.itis.androidpractice.features.topic.presentation.ui.screenstates.AddTopicState
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AddTopicViewModel @Inject constructor(
     private val addTopicUseCase: AddTopicUseCase,
     private val checkInternetUseCase: CheckInternetUseCase,
-    private val getIdUseCase: GetIdUseCase
+    private val getCurrentIdUseCase: GetCurrentIdUseCase
 ) : BaseViewModel<AddTopicState>(AddTopicState()) {
 
     fun onTitleChanged(newTitle: String) {
@@ -25,7 +25,7 @@ class AddTopicViewModel @Inject constructor(
         viewState = viewState.copy(description = newDescription, descriptionError = null)
     }
 
-    fun addTopic() {
+    fun addTopic(onSuccess: (String) -> Unit) {
         viewModelScope.launch {
             val isConnected = checkInternetUseCase()
 
@@ -38,7 +38,7 @@ class AddTopicViewModel @Inject constructor(
                 AddTopicUseCase.Input(
                     title = viewState.title,
                     description = viewState.description,
-                    authorId = getIdUseCase.execute()
+                    authorId = getCurrentIdUseCase.execute()
                 )
             )
 
@@ -46,8 +46,11 @@ class AddTopicViewModel @Inject constructor(
                 titleError = result.titleError,
                 descriptionError = result.descriptionError
             )
+
+            result.topicId?.let { onSuccess(it) }
         }
     }
+
 
     fun dismissNoConnectionBanner() {
         viewState = viewState.copy(showNoConnectionBanner = false)
