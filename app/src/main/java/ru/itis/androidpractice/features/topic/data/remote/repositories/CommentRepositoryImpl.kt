@@ -19,4 +19,18 @@ class CommentRepositoryImpl @Inject constructor(
     } catch (e: FirebaseFirestoreException) {
         Result.failure(e)
     }
+
+    override suspend fun getCommentsForTopic(topicId: String): Result<List<CommentEntity>> = try {
+        val doc = firestore.collection("comments")
+            .whereEqualTo("topicId", topicId)
+            .whereEqualTo("deleted", false)
+//            .orderBy("createdAt")
+            .get()
+            .await()
+
+        val comments = doc.toObjects(CommentEntity::class.java)
+        Result.success(comments)
+    } catch (e: FirebaseFirestoreException) {
+        Result.failure(e)
+    }
 }

@@ -2,9 +2,12 @@ package ru.itis.androidpractice.features.topic.presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import ru.itis.androidpractice.core.ui.viewmodel.BaseViewModel
 import ru.itis.androidpractice.features.topic.domain.usecases.AddCommentUseCase
+import ru.itis.androidpractice.features.topic.domain.usecases.GetCommentsByTopicIdUseCase
 import ru.itis.androidpractice.features.topic.domain.usecases.GetCurrentIdUseCase
 import ru.itis.androidpractice.features.topic.domain.usecases.GetTopicByIdUseCase
 import ru.itis.androidpractice.features.topic.presentation.ui.screenstates.TopicDetailsState
@@ -15,6 +18,7 @@ class TopicDetailsViewModel @Inject constructor(
     private val addCommentUseCase: AddCommentUseCase,
     private val getTopicByIdUseCase: GetTopicByIdUseCase,
     private val getCurrentIdUseCase: GetCurrentIdUseCase,
+    private val getCommentsByTopicIdUseCase: GetCommentsByTopicIdUseCase
 ) : BaseViewModel<TopicDetailsState>(TopicDetailsState()) {
 
     fun loadTopic(id: String) {
@@ -27,11 +31,21 @@ class TopicDetailsViewModel @Inject constructor(
                             title = it.title,
                             description = it.description
                         )
+                        loadComments(it.id)
                     }
                 }
 //                else {
                     ///////////
 //            }
+        }
+    }
+
+    private suspend fun loadComments(topicId: String) {
+        val commentsResult = getCommentsByTopicIdUseCase.execute(topicId)
+        if (commentsResult.isSuccess) {
+            viewState = viewState.copy(
+                comments = commentsResult.getOrNull()?.toImmutableList() ?: persistentListOf()
+            )
         }
     }
 
@@ -58,9 +72,8 @@ class TopicDetailsViewModel @Inject constructor(
 
             if (result.isSuccess) {
                 viewState = viewState.copy(currentCommentText = "")
+                loadComments(topicId)
             }
         }
     }
-
-
 }
