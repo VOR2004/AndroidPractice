@@ -8,5 +8,6 @@ data class CommentEntity(
     val authorId: String = "",
     val text: String = "",
     val createdAt: Date = Date(),
-    val isDeleted: Boolean = false
+    val isDeleted: Boolean = false,
+    val rating: Int = 0
 )

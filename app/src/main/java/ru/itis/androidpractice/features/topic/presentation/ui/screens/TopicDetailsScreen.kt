@@ -3,6 +3,7 @@ package ru.itis.androidpractice.features.topic.presentation.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.*
@@ -24,21 +25,39 @@ fun TopicDetailsScreen(
     viewModel: TopicDetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.viewStates.collectAsStateWithLifecycle()
-    val scrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    val lazyListState = rememberLazyListState()
+
+    val canScrollUp by remember {
+        derivedStateOf {
+            lazyListState.canScrollBackward
+        }
+    }
+
+    val scrollBehavior = if (canScrollUp) {
+        BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    } else {
+        null
+    }
 
     LaunchedEffect(id) {
         viewModel.loadTopic(id)
     }
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .then(
+                if (scrollBehavior != null)
+                    Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+                else
+                    Modifier
+            ),
         bottomBar = {
             BottomAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 scrollBehavior = scrollBehavior,
                 containerColor = MaterialTheme.colorScheme.surface,
                 tonalElevation = 4.dp,
-                windowInsets = WindowInsets(0.dp)
+                windowInsets = WindowInsets(0.dp),
             ) {
                 Row(
                     modifier = Modifier
@@ -80,6 +99,7 @@ fun TopicDetailsScreen(
         }
     ) { paddingValues ->
         LazyColumn(
+            state = lazyListState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
@@ -100,7 +120,16 @@ fun TopicDetailsScreen(
                 )
             }
             items(state.comments) { comment ->
-                CommentItem(comment.text)
+                CommentItem(
+                    text = comment.text,
+                    authorName = comment.authorId
+                )
+            }
+
+            if (canScrollUp) {
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     }

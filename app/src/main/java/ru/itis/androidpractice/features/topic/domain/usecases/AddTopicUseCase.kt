@@ -35,10 +35,10 @@ class AddTopicUseCase @Inject constructor(
             val result = topicRepository.createTopic(topic)
             result.fold(
                 onSuccess = { topicId -> ValidationResult(topicId = topicId) },
-                onFailure = { ValidationResult() }
+                onFailure = { ValidationResult() } // do smth
             )
         } catch (_: Exception) {
-            ValidationResult()
+            ValidationResult() // do smth
         }
     }
 }
