@@ -1,5 +1,8 @@
 package ru.itis.androidpractice.features.topic.presentation.ui.screenstates
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class AddTopicState(
     val title: String = "",
     val description: String = "",
