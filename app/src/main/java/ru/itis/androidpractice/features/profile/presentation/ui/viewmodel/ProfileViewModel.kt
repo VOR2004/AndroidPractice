@@ -1,6 +1,8 @@
 package ru.itis.androidpractice.features.profile.presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.itis.androidpractice.core.session.domain.usecases.GetCurrentIdUseCase
@@ -21,9 +23,11 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel<ProfileState>(ProfileState()) {
 
     init {
+
         viewModelScope.launch {
             val name = getNameUseCase.invoke()
             val ratingStr = getRatingUseCase.invoke(getCurrentIdUseCase.invoke())
+            Firebase.crashlytics.setCustomKey("rating", ratingStr)
             val ratingInt = ratingStr.toIntOrNull() ?: 0
             val status = getStatusByRating(ratingInt)
 

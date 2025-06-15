@@ -1,5 +1,8 @@
 package ru.itis.androidpractice.core.user.data.remote.datasource.impl
 
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import ru.itis.androidpractice.features.auth.data.remote.mappers.UserFireBaseMapper
@@ -87,6 +90,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
             val rating = doc.getLong("rating")?.toInt() ?: 0
             Result.success(rating)
         } catch (e: Exception) {
+            Firebase.crashlytics.recordException(e)
             Result.failure(e)
         }
     }

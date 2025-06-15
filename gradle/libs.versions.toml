@@ -4,6 +4,7 @@ compose = "1.0.0-beta01"
 datastore = "1.2.0-alpha01"
 firebaseAuthKtx = "23.2.0"
 firebaseBom = "33.13.0"
+firebaseBomVersion = "33.15.0"
 firebaseFirestoreKtx = "25.1.4"
 foundationPager = "1.4.0"
 glide = "4.16.0"
@@ -30,8 +31,11 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-foundation-pager = { module = "androidx.compose.foundation:foundation-pager", version.ref = "foundationPager" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-bom-v33150 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }

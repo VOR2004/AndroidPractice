@@ -7,6 +7,7 @@ plugins {
     id("com.google.gms.google-services")
     alias(libs.plugins.jetbrains.kotlin.serialization)
     id("kotlin-parcelize")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -84,4 +85,7 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.parse)
     implementation(libs.compose)
+    implementation(platform(libs.firebase.bom.v33150))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.google.firebase.analytics)
 }

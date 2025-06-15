@@ -1,6 +1,8 @@
 package ru.itis.androidpractice.features.main.presentation.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -60,7 +62,7 @@ class MainViewModel @Inject constructor(
             topic.title.contains(query, ignoreCase = true) ||
                     topic.description.contains(query, ignoreCase = true)
         }
-
+        Firebase.crashlytics.setCustomKey("filtered_size", filtered.size)
         viewState = viewState.copy(
             topics = filtered.toImmutableList(),
         )

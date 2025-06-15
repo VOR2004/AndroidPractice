@@ -1,5 +1,7 @@
 package ru.itis.androidpractice.core.session.data.repositories
 
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.tasks.await
@@ -16,6 +18,7 @@ class UserRatingRepositoryImpl @Inject constructor(
         val rating = snapshot.getLong("rating")?.toInt() ?: 0
         Result.success(rating)
     } catch (e: FirebaseFirestoreException) {
+        Firebase.crashlytics.recordException(e)
         Result.failure(e)
     }
 }
