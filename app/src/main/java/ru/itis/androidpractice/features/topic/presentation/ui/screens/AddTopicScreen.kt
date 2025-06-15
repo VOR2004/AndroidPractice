@@ -151,7 +151,7 @@ fun AddTopicScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Spellcheck,
-                        contentDescription = "Проверить грамматику",
+                        contentDescription = stringResource(R.string.check_spelling),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

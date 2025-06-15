@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.itis.androidpractice.BuildConfig
 import ru.itis.androidpractice.core.network.api.TextGearsApi
 import ru.itis.androidpractice.core.network.api.TextGearsApiKeyInterceptor
 import javax.inject.Singleton
@@ -20,8 +21,7 @@ object NetworkModule {
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
-    fun provideTextGearsApiKey(): String = "7Bk28kirJaks37a1"
-//        BuildConfig.API_KEY
+    fun provideTextGearsApiKey(): String = BuildConfig.API_KEY
 
     @Provides
     fun provideTextGearsApiKeyInterceptor(apiKey: String): TextGearsApiKeyInterceptor =
@@ -50,7 +50,7 @@ object NetworkModule {
         converterFactory: GsonConverterFactory
     ): TextGearsApi {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.textgears.com/")
+            .baseUrl(BuildConfig.BASE_URL_TEXTGEARS)
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()

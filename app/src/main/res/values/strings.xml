@@ -29,5 +29,6 @@
     <string name="dismiss_replies">Dismiss replies</string>
     <string name="show_replies">Show replies</string>
     <string name="back">Back</string>
+    <string name="check_spelling">Check spelling</string>
     <string name="enter_nickname_hint">Find user to get their rating and common description.</string>
 </resources>
