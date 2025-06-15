@@ -9,4 +9,6 @@ interface UserRemoteDataSource {
     suspend fun isEmailTaken(email: String): Result<Boolean>
     suspend fun isUsernameTaken(username: String): Result<Boolean>
     suspend fun getUsername(userId: String): Result<String?>
+    suspend fun getUserByUsername(name: String): Result<BaseUserModel?>
+    suspend fun getRatingByUserId(userId: String): Result<Int>
 }

@@ -62,6 +62,15 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun findUserByUsername(username: String): BaseUserModel? {
+        return withContext(Dispatchers.IO) {
+            val remoteResult = userRemoteDataSource.getUserByUsername(username)
+            remoteResult.getOrNull()?.also { user ->
+                userLocalDataSource.insertUser(user)
+            }
+        }
+    }
+
     override suspend fun isEmailTaken(email: String): Boolean {
         return withContext(Dispatchers.IO) {
             val remoteResult = userRemoteDataSource.isEmailTaken(email)
@@ -75,4 +84,11 @@ class UserRepositoryImpl @Inject constructor(
             remoteResult.getOrDefault(false)
         }
     }
+
+    override suspend fun getRating(userId: String): Int {
+        return withContext(Dispatchers.IO) {
+            userRemoteDataSource.getRatingByUserId(userId).getOrDefault(0)
+        }
+    }
+
 }

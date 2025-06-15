@@ -10,7 +10,7 @@ import javax.inject.Inject
 import ru.itis.androidpractice.features.auth.data.remote.utils.SafeCall.safeCall
 
 class UserRemoteDataSourceImpl @Inject constructor(
-    firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val mapper: UserFireBaseMapper
 ) : UserRemoteDataSource {
 
@@ -32,6 +32,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
     override suspend fun getUserByEmail(email: String): Result<BaseUserModel?> = safeCall {
         val snapshot = usersCollection
             .whereEqualTo("email", email)
+            .limit(1)
+            .get()
+            .await()
+
+        snapshot.documents.firstOrNull()
+            ?.toObject(UserFirebaseEntity::class.java)
+            ?.let(mapper::toBaseUserModel)
+    }
+
+    override suspend fun getUserByUsername(name: String): Result<BaseUserModel?> = safeCall {
+        val snapshot = usersCollection
+            .whereEqualTo("username", name)
             .limit(1)
             .get()
             .await()
@@ -65,4 +77,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
         val document = usersCollection.document(userId).get().await()
         document.getString("username")
     }
+
+    override suspend fun getRatingByUserId(userId: String): Result<Int> {
+        return try {
+            val doc = firestore.collection("user_ratings")
+                .document(userId)
+                .get()
+                .await()
+            val rating = doc.getLong("rating")?.toInt() ?: 0
+            Result.success(rating)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

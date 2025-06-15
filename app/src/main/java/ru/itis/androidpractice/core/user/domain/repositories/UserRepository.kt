@@ -9,4 +9,6 @@ interface UserRepository {
     suspend fun isEmailTaken(email: String): Boolean
     suspend fun isUsernameTaken(username: String): Boolean
     suspend fun getName(id: String): String?
+    suspend fun findUserByUsername(username: String): BaseUserModel?
+    suspend fun getRating(userId: String): Int
 }

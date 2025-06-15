@@ -14,4 +14,14 @@
     <string name="topic_title">Topic title</string>
     <string name="topic_description">Topic description</string>
     <string name="create_topic">Create topic</string>
+    <string name="your_rating">Your rating:</string>
+    <string name="your_avatar">Your avatar</string>
+    <string name="your_status">Your status:</string>
+    <string name="search">Search</string>
+    <string name="user_not_found">User not found.</string>
+    <string name="user_rating">Rating:</string>
+    <string name="user_avatar">Avatar</string>
+    <string name="user_status">Status:</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="enter_nickname_hint">Find user to get their rating and common description.</string>
 </resources>

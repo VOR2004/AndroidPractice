@@ -39,6 +39,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
@@ -81,4 +82,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.parse)
+    implementation(libs.compose)
 }

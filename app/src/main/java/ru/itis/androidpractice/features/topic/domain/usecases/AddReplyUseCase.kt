@@ -17,15 +17,17 @@ class AddReplyUseCase @Inject constructor(
     )
     data class ValidationResult(
         val replyError: String? = null,
-        val isSuccess: Boolean = false
+        val isSuccess: Boolean = false,
+        val id: String? = null
     )
 
     suspend fun execute(input: Input): ValidationResult {
         if (input.text.isBlank()) {
             return ValidationResult(replyError = "Ответ не может быть пустым")
         }
+        val id = UUID.randomUUID().toString()
         val reply = ReplyEntity(
-            id = UUID.randomUUID().toString(),
+            id = id,
             commentId = input.commentId,
             authorId = input.authorId,
             authorName = input.authorName,
@@ -34,7 +36,7 @@ class AddReplyUseCase @Inject constructor(
         )
         return try {
             replyRepository.addReply(reply)
-            ValidationResult(isSuccess = true)
+            ValidationResult(isSuccess = true, id = id)
         } catch (_: Exception) {
             ValidationResult(isSuccess = false)
         }

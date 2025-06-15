@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.itis.androidpractice.core.ui.viewmodel.BaseViewModel
 import ru.itis.androidpractice.features.auth.domain.usecases.CheckInternetUseCase
+import ru.itis.androidpractice.features.topic.common.validators.TextTrimmer
 import ru.itis.androidpractice.features.topic.domain.usecases.AddTopicUseCase
 import ru.itis.androidpractice.features.topic.domain.usecases.GetCurrentIdUseCase
 import ru.itis.androidpractice.features.topic.presentation.ui.screenstates.AddTopicState
@@ -36,8 +37,8 @@ class AddTopicViewModel @Inject constructor(
 
             val result = addTopicUseCase.execute(
                 AddTopicUseCase.Input(
-                    title = viewState.title,
-                    description = viewState.description,
+                    title = TextTrimmer.trimExcessiveLineBreaks(viewState.title),
+                    description = TextTrimmer.trimExcessiveLineBreaks(viewState.description),
                     authorId = getCurrentIdUseCase.execute()
                 )
             )

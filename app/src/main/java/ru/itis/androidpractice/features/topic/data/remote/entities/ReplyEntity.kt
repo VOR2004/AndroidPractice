@@ -10,5 +10,5 @@ data class ReplyEntity(
     val text: String = "",
     val createdAt: Date = Date(),
     val isDeleted: Boolean = false,
-    val replyToAuthorName: String = ""   // Имя автора комментария, на который отвечают
+    val replyToAuthorName: String = ""
 )

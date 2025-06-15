@@ -11,5 +11,7 @@ data class CommentEntity(
     val text: String = "",
     val createdAt: Date = Date(),
     val isDeleted: Boolean = false,
-    val rating: Int = 0
+    val rating: Int = 0,
+    val replies: List<ReplyEntity> = emptyList(),
+    val authorName: String = ""
 )
