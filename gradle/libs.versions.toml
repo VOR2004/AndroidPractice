@@ -1,6 +1,7 @@
 [versions]
 agp = "8.11.0-alpha07"
 compose = "1.0.0-beta01"
+converterGson = "3.0.0"
 datastore = "1.2.0-alpha01"
 firebaseAuthKtx = "23.2.0"
 firebaseBom = "33.13.0"
@@ -20,8 +21,10 @@ kotlinxCollectionsImmutable = "0.4.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.04.01"
+loggingInterceptor = "4.12.0"
 navigationCompose = "2.8.9"
 parse = "4.3.0"
+retrofit = "3.0.0"
 roomRuntime = "2.7.1"
 kotlinxSerializationJson = "1.8.1"
 kotlinxSerialization = "2.1.20"
@@ -30,6 +33,7 @@ kotlinxSerialization = "2.1.20"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation-pager = { module = "androidx.compose.foundation:foundation-pager", version.ref = "foundationPager" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-bom-v33150 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
@@ -66,7 +70,9 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 parse = { module = "com.github.parse-community.Parse-SDK-Android:parse", version.ref = "parse" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 [plugins]
 jetbrains-kotlin-serialization = { id ="org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerialization"}
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -8,5 +8,6 @@ data class AddTopicState(
     val description: String = "",
     val titleError: String? = null,
     val descriptionError: String? = null,
-    val showNoConnectionBanner: Boolean = false
+    val showNoConnectionBanner: Boolean = false,
+    val grammarErrors: List<String> = emptyList()
 )

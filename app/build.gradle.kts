@@ -41,8 +41,14 @@ android {
         jvmTarget = "11"
     }
 
+    defaultConfig {
+        buildConfigField("String", "BASE_URL_TEXTGEARS", "\"${properties["BASE_URL_TEXTGEARS"]}\"")
+        buildConfigField("String", "API_KEY", "\"${properties["API_KEY"]}\"")
+    }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -88,4 +94,7 @@ dependencies {
     implementation(platform(libs.firebase.bom.v33150))
     implementation(libs.firebase.crashlytics)
     implementation(libs.google.firebase.analytics)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 }

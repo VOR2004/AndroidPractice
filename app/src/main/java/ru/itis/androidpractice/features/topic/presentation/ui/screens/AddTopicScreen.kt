@@ -5,10 +5,16 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -30,6 +36,7 @@ import ru.itis.androidpractice.features.topic.presentation.ui.viewmodel.AddTopic
 import ru.itis.androidpractice.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Spellcheck
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -119,19 +126,57 @@ fun AddTopicScreen(
                 }
             }
 
-            ButtonDefault(
-                onClick = {
-                    viewModel.addTopic { topicId ->
-                        navigateToTopic(topicId)
-                    }
-                },
-                text = stringResource(R.string.create_topic),
+            Row(
                 modifier = Modifier
-                    .padding(start = 32.dp, end = 32.dp, top = 48.dp)
                     .fillMaxWidth()
-            )
+                    .padding(horizontal = 32.dp, vertical = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ButtonDefault(
+                    onClick = {
+                        viewModel.addTopic { topicId ->
+                            navigateToTopic(topicId)
+                        }
+                    },
+                    text = stringResource(R.string.create_topic),
+                    modifier = Modifier.weight(1f)
+                )
+
+                IconButton(
+                    onClick = { viewModel.checkGrammar() },
+                    modifier = Modifier
+                        .height(48.dp)
+                        .width(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Spellcheck,
+                        contentDescription = "Проверить грамматику",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+            if (state.grammarErrors.isNotEmpty()) {
+                LazyColumn(
+                    modifier = Modifier
+                        .widthIn(min = 100.dp, max = 360.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 24.dp)
+                        .heightIn(max = 150.dp)
+                ) {
+                    items(state.grammarErrors) { errorText ->
+                        Text(
+                            text = errorText,
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        )
+                    }
+                }
+            }
         }
     }
 }
+
 
 
