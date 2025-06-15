@@ -33,59 +33,59 @@ fun TopicDetailsScreen(
     LaunchedEffect(id) {
         viewModel.loadTopic(id)
     }
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            bottomBar = {
-                CommentInputBar(
-                    currentText = state.currentCommentText,
-                    onTextChange = viewModel::onCommentTextChanged,
-                    onSendClick = { viewModel.sendCommentOrReply(id) },
-                    commentError = state.commentError,
-                    scrollBehavior = scrollBehavior
-                )
-            },
-            floatingActionButtonPosition = FabPosition.Start,
-            floatingActionButton = {
-                if (state.replyToComment != null) {
-                    ReplyToCommentOverlay(
-                        replyToComment = state.replyToComment!!,
-                        scrollBehavior = scrollBehavior,
-                        onClearReply = viewModel::clearReply,
-                        modifier = Modifier
-                    )
-                }
-            },
-        ) { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .pullToRefresh(
-                        isRefreshing = state.isLoading,
-                        onRefresh = { viewModel.refreshAndLoadTopic(id) },
-                        state = stateRefresh,
-                        enabled = true
-                    )
-            ) {
-                CommentsList(
-                    comments = state.comments,
-                    onReplyClick = viewModel::onReplyClick,
-                    lazyListState = lazyListState,
-                    title = state.title,
-                    description = state.description,
-                    expandedComments = state.expandedComments,
-                    visibleReplies = state.visibleReplies,
-                    onToggleReplies = viewModel::toggleRepliesVisibility,
-                    onLikeClick = viewModel::onLikeClick
-                )
-                PullToRefreshDefaults.Indicator(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    isRefreshing = state.isLoading,
-                    state = stateRefresh,
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        bottomBar = {
+            CommentInputBar(
+                currentText = state.currentCommentText,
+                onTextChange = viewModel::onCommentTextChanged,
+                onSendClick = { viewModel.sendCommentOrReply(id) },
+                commentError = state.commentError,
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButtonPosition = FabPosition.Start,
+        floatingActionButton = {
+            if (state.replyToComment != null) {
+                ReplyToCommentOverlay(
+                    replyToComment = state.replyToComment!!,
+                    scrollBehavior = scrollBehavior,
+                    onClearReply = viewModel::clearReply,
+                    modifier = Modifier
                 )
             }
+        },
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .pullToRefresh(
+                    isRefreshing = state.isLoading,
+                    onRefresh = { viewModel.refreshAndLoadTopic(id) },
+                    state = stateRefresh,
+                    enabled = true
+                )
+        ) {
+            CommentsList(
+                comments = state.comments,
+                onReplyClick = viewModel::onReplyClick,
+                lazyListState = lazyListState,
+                title = state.title,
+                description = state.description,
+                expandedComments = state.expandedComments,
+                visibleReplies = state.visibleReplies,
+                onToggleReplies = viewModel::toggleRepliesVisibility,
+                onLikeClick = viewModel::onLikeClick
+            )
+            PullToRefreshDefaults.Indicator(
+                modifier = Modifier.align(Alignment.TopCenter),
+                isRefreshing = state.isLoading,
+                state = stateRefresh,
+            )
         }
+    }
 }
 
 

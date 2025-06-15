@@ -55,6 +55,9 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
                 currentRoute = Routes.Main,
                 onCreateClick = {
                     navController.navigate(Routes.CreateTopic)
+                },
+                onTopicClick = { topicId ->
+                    navController.navigate(Routes.Topic(topicId))
                 }
             )
         }
@@ -87,7 +90,8 @@ fun SetupNavGraph(navController: NavHostController, isSignedIn: Boolean) {
             AddTopicScreen(
                 navigateToTopic = { topicId ->
                     navController.navigate(Routes.Topic(topicId))
-                }
+                },
+                onBackClick  = { navController.popBackStack() }
             )
         }
 

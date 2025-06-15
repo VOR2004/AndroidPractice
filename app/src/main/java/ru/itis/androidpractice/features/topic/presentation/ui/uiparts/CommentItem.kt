@@ -12,8 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import ru.itis.androidpractice.R
 
 @Composable
 fun CommentItem(
@@ -32,6 +34,7 @@ fun CommentItem(
     ) {
         Card(
             modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
             elevation = CardDefaults.cardElevation(4.dp)
         ) {
@@ -84,7 +87,7 @@ fun CommentItem(
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Add",
+                contentDescription = stringResource(R.string.add_topic),
                 tint = Color.White,
                 modifier = Modifier.size(16.dp)
             )

@@ -23,5 +23,11 @@
     <string name="user_avatar">Avatar</string>
     <string name="user_status">Status:</string>
     <string name="enter_nickname">Enter nickname</string>
+    <string name="search_topics">Search topics</string>
+    <string name="add_topic">Add topic</string>
+    <string name="reply">Reply</string>
+    <string name="dismiss_replies">Dismiss replies</string>
+    <string name="show_replies">Show replies</string>
+    <string name="back">Back</string>
     <string name="enter_nickname_hint">Find user to get their rating and common description.</string>
 </resources>

@@ -5,6 +5,7 @@ datastore = "1.2.0-alpha01"
 firebaseAuthKtx = "23.2.0"
 firebaseBom = "33.13.0"
 firebaseFirestoreKtx = "25.1.4"
+foundationPager = "1.4.0"
 glide = "4.16.0"
 hiltAndroid = "2.56.2"
 hiltNavigationCompose = "1.2.0"
@@ -26,6 +27,7 @@ kotlinxSerialization = "2.1.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-foundation-pager = { module = "androidx.compose.foundation:foundation-pager", version.ref = "foundationPager" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }

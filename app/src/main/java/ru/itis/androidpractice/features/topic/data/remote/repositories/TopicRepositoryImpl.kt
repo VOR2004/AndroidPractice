@@ -35,4 +35,13 @@ class TopicRepositoryImpl @Inject constructor(
     } catch (e: FirebaseFirestoreException) {
         Result.failure(e)
     }
+
+    override suspend fun getTopics(): Result<List<TopicEntity>> = try {
+        val snapshot = firestore.collection("topics").get().await()
+        val topics = snapshot.documents.mapNotNull { it.toObject(TopicEntity::class.java)?.copy(id = it.id) }
+        Result.success(topics)
+    } catch (e: FirebaseFirestoreException) {
+        Result.failure(e)
+    }
+
 }

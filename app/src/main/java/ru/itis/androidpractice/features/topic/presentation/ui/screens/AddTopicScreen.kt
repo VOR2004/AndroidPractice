@@ -28,28 +28,50 @@ import ru.itis.androidpractice.features.auth.presentation.ui.uiparts.banners.NoC
 import ru.itis.androidpractice.core.ui.uiparts.ButtonDefault
 import ru.itis.androidpractice.features.topic.presentation.ui.viewmodel.AddTopicViewModel
 import ru.itis.androidpractice.R
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.TopAppBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTopicScreen(
     viewModel: AddTopicViewModel = hiltViewModel(),
-    navigateToTopic: (String) -> Unit
+    navigateToTopic: (String) -> Unit,
+    onBackClick: () -> Unit
 ) {
     val state by viewModel.viewStates.collectAsStateWithLifecycle()
     val errorTextHeight = 16.dp
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(R.string.create_topic)) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
 
         if (state.showNoConnectionBanner) {
             NoConnectionBanner { viewModel.dismissNoConnectionBanner() }
         }
 
-        Column(modifier = Modifier
-            .padding(paddingValues)
-            .padding(16.dp),
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
+        ) {
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -63,9 +85,10 @@ fun AddTopicScreen(
                     .padding(start = 16.dp, end = 16.dp),
                 singleLine = true,
             )
-            Box(modifier = Modifier
-                .height(errorTextHeight)
-                .padding(start = 24.dp, end = 24.dp)
+            Box(
+                modifier = Modifier
+                    .height(errorTextHeight)
+                    .padding(start = 24.dp, end = 24.dp)
             ) {
                 state.titleError?.let {
                     Text(text = it, color = Color.Red, style = MaterialTheme.typography.labelSmall)
@@ -86,9 +109,10 @@ fun AddTopicScreen(
                         state = rememberScrollState()
                     ),
             )
-            Box(modifier = Modifier
-                .height(errorTextHeight)
-                .padding(start = 24.dp, end = 24.dp)
+            Box(
+                modifier = Modifier
+                    .height(errorTextHeight)
+                    .padding(start = 24.dp, end = 24.dp)
             ) {
                 state.descriptionError?.let {
                     Text(text = it, color = Color.Red, style = MaterialTheme.typography.labelSmall)
@@ -109,4 +133,5 @@ fun AddTopicScreen(
         }
     }
 }
+
 

@@ -30,8 +30,10 @@ fun CommentsList(
         state = lazyListState,
         modifier = Modifier.fillMaxSize()
     ) {
-        item{
-            TopicHeader(title = title, description = description)
+        item {
+            TopicHeader(
+                title = title, description = description,
+            )
         }
         items(comments, key = { it.id }) { comment ->
             CommentItem(

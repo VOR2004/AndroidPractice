@@ -5,4 +5,5 @@ import ru.itis.androidpractice.features.topic.data.remote.entities.TopicEntity
 interface TopicRepository {
     suspend fun createTopic(topic: TopicEntity): Result<String>
     suspend fun getTopicById(id: String): Result<TopicEntity>
+    suspend fun getTopics(): Result<List<TopicEntity>>
 }

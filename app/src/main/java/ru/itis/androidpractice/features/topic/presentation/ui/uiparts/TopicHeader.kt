@@ -14,12 +14,12 @@ fun TopicHeader(title: String, description: String) {
         Text(
             text = title,
             style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
         )
         Text(
             text = description,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp)
         )
     }
 }
